@@ -202,9 +202,7 @@ public class ChessMatch {
         placeNewPiece('f', 1, new Bishop(board, Color.WHITE));
         placeNewPiece('b', 1, new Knight(board, Color.WHITE));
         placeNewPiece('g', 1, new Knight(board, Color.WHITE));
-        placeNewPiece('d', 1, new Queen(board, Color.WHITE));
-        
-        placeNewPiece('d', 4, new Queen(board, Color.WHITE));
+        placeNewPiece('d', 1, new Queen(board, Color.WHITE));     
         
         for(char i = 'a'; i <= 'h'; i++) {
         	placeNewPiece(i, 2, new Pawn(board, Color.WHITE));
