@@ -11,6 +11,7 @@ import chess.pieces.Bishop;
 import chess.pieces.King;
 import chess.pieces.Knight;
 import chess.pieces.Pawn;
+import chess.pieces.Queen;
 import chess.pieces.Rook;
 
 public class ChessMatch {
@@ -201,6 +202,9 @@ public class ChessMatch {
         placeNewPiece('f', 1, new Bishop(board, Color.WHITE));
         placeNewPiece('b', 1, new Knight(board, Color.WHITE));
         placeNewPiece('g', 1, new Knight(board, Color.WHITE));
+        placeNewPiece('d', 1, new Queen(board, Color.WHITE));
+        
+        placeNewPiece('d', 4, new Queen(board, Color.WHITE));
         
         for(char i = 'a'; i <= 'h'; i++) {
         	placeNewPiece(i, 2, new Pawn(board, Color.WHITE));
@@ -213,6 +217,7 @@ public class ChessMatch {
         placeNewPiece('f', 8, new Bishop(board, Color.BLACK));
         placeNewPiece('b', 8, new Knight(board, Color.BLACK));
         placeNewPiece('g', 8, new Knight(board, Color.BLACK));
+        placeNewPiece('d', 8, new Queen(board, Color.BLACK));
         
         for(char i = 'a'; i <= 'h'; i++) {
         	placeNewPiece(i, 7, new Pawn(board, Color.BLACK));
