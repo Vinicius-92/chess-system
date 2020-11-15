@@ -21,6 +21,7 @@ public class ChessMatch {
 	private Board board;
 	private boolean check;
 	private boolean checkMate;
+	private ChessPiece enPassantVulnerable;
 	
 	private List<Piece> piecesOnTheBoard = new ArrayList<>();
 	private List<Piece> capturedPieces = new ArrayList<>();
@@ -46,6 +47,10 @@ public class ChessMatch {
 	
 	public boolean getCheckMate() {
 		return check;
+	}
+	
+	public ChessPiece getEnPassantVulnerable() {
+		return enPassantVulnerable;
 	}
 	
 
@@ -78,6 +83,8 @@ public class ChessMatch {
 			throw new ChessException("You can't put yourself in check");
 		}
 		
+		ChessPiece movedPiece = (ChessPiece)board.piece(target);
+				
 		check = (testCheck(opponent(currentPlayer))) ? true : false;
 		
 		if(testCheckMate(opponent(currentPlayer))) {
@@ -85,6 +92,15 @@ public class ChessMatch {
 		} else {
 			nextTurn();
 		}
+		
+		//#SpecialMove En Passant
+		if(movedPiece instanceof Pawn && (target.getRow() == source.getRow() - 2 || target.getRow() == source.getRow() + 2)) {
+			enPassantVulnerable = movedPiece; 
+		}
+		else {
+			enPassantVulnerable = null;
+		}
+		
 		return (ChessPiece)capturedPiece;
 	}
 	
@@ -149,7 +165,6 @@ public class ChessMatch {
 		}
 		
 	}
-
 
 	private void validateSourcePosition(Position position) {
 		if (!board.thereIsAPiece(position)) {
@@ -242,7 +257,7 @@ public class ChessMatch {
         placeNewPiece('d', 1, new Queen(board, Color.WHITE));     
         
         for(char i = 'a'; i <= 'h'; i++) {
-        	placeNewPiece(i, 2, new Pawn(board, Color.WHITE));
+        	placeNewPiece(i, 2, new Pawn(board, Color.WHITE, this));
         }
 
         placeNewPiece('a', 8, new Rook(board, Color.BLACK));
@@ -255,7 +270,7 @@ public class ChessMatch {
         placeNewPiece('d', 8, new Queen(board, Color.BLACK));
         
         for(char i = 'a'; i <= 'h'; i++) {
-        	placeNewPiece(i, 7, new Pawn(board, Color.BLACK));
+        	placeNewPiece(i, 7, new Pawn(board, Color.BLACK, this));
         }
 	}
 
